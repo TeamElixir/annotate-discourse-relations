@@ -6,6 +6,10 @@
 
 @section('content')
     <div class="row">
-        <h3>Hello World!</h3>
+        <h3>FYP OBLIE</h3>
+    </div>
+
+    <div id="app">
+        <articles></articles>
     </div>
 @stop
