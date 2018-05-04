@@ -6,7 +6,15 @@
 
 <script>
     export default {
-        name: "articles"
+        name: "articles",
+        data() {
+            return {
+                articles: [],
+                article: {
+
+                }
+            }
+        }
     }
 </script>
 

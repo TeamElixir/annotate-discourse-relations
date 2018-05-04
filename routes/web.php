@@ -11,6 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'uses' => 'PagesController@getHomePage',
+]);
+
+Route::get('/raw-sentences', [
+    'uses' => 'SentencesController@getAllSentences',
+]);
+
+Route::get('/raw-sentence-pairs', [
+    'uses' => 'SentencePairsController@getAllSentencePairs'
+]);
+
+Route::get('sentence/{id}', [
+    'uses' => 'SentencesController@getSentenceById'
+]);
+
+Route::get('sentence-pair/{id}', [
+    'uses' => 'SentencePairsController@getSentencePairById'
+]);
