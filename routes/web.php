@@ -30,3 +30,7 @@ Route::get('sentence/{id}', [
 Route::get('sentence-pair/{id}', [
     'uses' => 'SentencePairsController@getSentencePairById'
 ]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
