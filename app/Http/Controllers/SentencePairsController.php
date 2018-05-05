@@ -33,10 +33,10 @@ class SentencePairsController extends Controller
     public static function getSentencePairById($id)
     {
         $sentence_pair = SentencePair::find($id);
-        $source_sntc = SentencesController::getSentenceById($sentence_pair->source_sntc_id);
-        $target_sntc = SentencesController::getSentenceById($sentence_pair->target_sntc_id);
-        $relation_1 = self::$relations[$sentence_pair->relation_1];
-        $relation_2 = self::$relations[$sentence_pair->relation_2];
+        $source_sntc = SentencesController::getSentenceById($sentence_pair["source_sntc_id"]);
+        $target_sntc = SentencesController::getSentenceById($sentence_pair["target_sntc_id"]);
+        $relation_1 = self::$relations[$sentence_pair["relation_1"]];
+        $relation_2 = self::$relations[$sentence_pair["relation_2"]];
 
         $pair_object = [
             'pair_id' => $sentence_pair->id,
