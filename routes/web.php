@@ -34,3 +34,6 @@ Route::get('sentence-pair/{id}', [
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/api/pairs', 'api\SentencePairsController@search');
+Route::get('/api/sentences', 'api\SentencesController@search');
