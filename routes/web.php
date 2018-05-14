@@ -40,3 +40,4 @@ Route::get('/api/sentences', 'api\SentencesApi@search');
 
 Route::get('/api/annotations', 'api\AnnotationsApi@getAllAnnotations');
 Route::get('/api/annotations/{user_id}','api\AnnotationsApi@getAnnotationsOfuser');
+Route::post('annotations/create', 'AnnotationsController@createAnnotation');

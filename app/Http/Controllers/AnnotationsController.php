@@ -18,6 +18,17 @@ class AnnotationsController extends Controller
     }
 
     public function createAnnotation(Request $request) {
+        $user_id = $request->user_id;
+        $pair_id = $request->pair_id;
+        $annotation = $request->annotation;
 
+        $annotation = new Annotation();
+        $annotation->user_id = $user_id;
+        $annotation->pair_id = $pair_id;
+        $annotation->annotation = $annotation;
+
+        $annotation->save();
+
+        return redirect()->back();
     }
 }
