@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SentencePair;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SentencePairsController extends Controller
@@ -33,6 +34,16 @@ class SentencePairsController extends Controller
 
     public static function getSentencePairById($id)
     {
+        // all annotations by the currently logged in user
+        $auth_users_annotations = AnnotationsController::getAnnotationsOfuser(Auth::user()->id);
+        $user_already_annotated = false;
+
+        foreach ($auth_users_annotations as $annotation) {
+            if ($annotation->id == $id) {
+                $user_already_annotated = true;
+            }
+        }
+
         $sentence_pair = SentencePair::find($id);
         $source_sntc = SentencesController::getSentenceById($sentence_pair["source_sntc_id"]);
         $target_sntc = SentencesController::getSentenceById($sentence_pair["target_sntc_id"]);
@@ -44,7 +55,8 @@ class SentencePairsController extends Controller
             'source_sntc' => $source_sntc,
             'target_sntc' => $target_sntc,
             'relation_1' => $relation_1,
-            'relation_2' => $relation_2
+            'relation_2' => $relation_2,
+            'user_already_annotated' => $user_already_annotated
         ];
 
         return $pair_object;

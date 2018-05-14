@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -20,7 +21,7 @@ class PagesController extends Controller
     {
         $sentence_pairs = SentencePairsController::getAllSentencePairs();
         return view('welcome', [
-            'sentence_pairs' => $sentence_pairs
+            'sentence_pairs' => $sentence_pairs,
         ]);
     }
 }

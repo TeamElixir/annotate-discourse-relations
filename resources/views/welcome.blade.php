@@ -38,8 +38,16 @@
                              data-aos-duration="600"
                              data-aos-delay="150"
                              class="col-md-8 col-centered text-center">
-                            <button class="btn btn-primary">True</button>
-                            <button class="btn btn-warning">False</button>
+                            @if($sentence_pair["user_already_annotated"])
+                                <div>
+                                    <button class="btn btn-info">Edit Submission</button>
+                                </div>
+                            @else
+                                <div>
+                                    <button class="btn btn-primary">True</button>
+                                    <button class="btn btn-warning">False</button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </ul>
