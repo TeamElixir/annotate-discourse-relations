@@ -35,5 +35,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/api/pairs', 'api\SentencePairsController@search');
-Route::get('/api/sentences', 'api\SentencesController@search');
+Route::get('/api/pairs', 'api\SentencePairsApi@search');
+Route::get('/api/sentences', 'api\SentencesApi@search');
+
+Route::get('/api/annotations', 'api\AnnotationsApi@getAllAnnotations');
+Route::get('/api/annotations/{user_id}','api\AnnotationsApi@getAnnotationsOfuser');

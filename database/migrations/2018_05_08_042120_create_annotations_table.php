@@ -18,7 +18,6 @@ class CreateAnnotationsTable extends Migration
             $table->integer('user_id');
             $table->integer('pair_id');
             $table->integer('annotation');
-            $table->timestamps();
         });
     }
 
