@@ -11,11 +11,12 @@
 
     @foreach($sentence_pairs as $sentence_pair)
         <div class="row">
-            <div class="col-md-8 col-centered">
+            <div data-aos="fade-left"
+                 data-aos-duration="700"
+                 class="col-md-8 col-centered">
                 <h5>Pair {{$sentence_pair["pair_id"]}}</h5>
-                <ul data-aos="fade-left"
-                    data-aos-duration="80{{$sentence_pair["pair_id"]%10}}"
-                    class="list-group">
+                <ul
+                        class="list-group">
                     <li class="list-group-item">
                         <div><strong>Source Sentence</strong>: {{$sentence_pair["source_sntc"]->sentence}}</div>
                     </li>
@@ -30,21 +31,31 @@
                         <div class="col-md-8 col-centered text-center">
                             @if($sentence_pair["user_already_annotated"])
                                 <div>
-                                    <button id="btn_edit_submission" class="btn btn-info">Edit Submission</button>
+                                    <div id="btn_submitted_{{$sentence_pair["pair_id"]}}"
+                                         class="btn btn-outline-info disabled">
+                                        Submitted
+                                    </div>
                                 </div>
                             @else
-                                <div>
-                                    <button id="btn_true" class="btn btn-primary">True</button>
-                                    <button id="btn_false" class="btn btn-warning">False</button>
+                                <div id="true-false_{{$sentence_pair["pair_id"]}}">
+                                    <button id="btn_true_{{$sentence_pair["pair_id"]}}"
+                                            onclick="markTrue({{$sentence_pair["pair_id"]}})"
+                                            class="btn btn-primary">True
+                                    </button>
+                                    <button id="btn_false_{{$sentence_pair["pair_id"]}}"
+                                            onclick="markFalse({{$sentence_pair["pair_id"]}})"
+                                            class="btn btn-warning">False
+                                    </button>
                                 </div>
                                 <div>
                                     <input type="hidden" id="user_id" name="user_id" value="{{$auth_user->id}}">
                                     <input type="hidden" id="pair_id" name="pair_id"
                                            value="{{$sentence_pair["pair_id"]}}">
                                     <input type="hidden" id="annotation" name="annotation" value="1">
-                                    <button onclick="annotate(this, {{$sentence_pair["pair_id"]}})"
-                                            class="btn btn-dark"
-                                            id="btn_submit">
+                                    <button style="display: none;"
+                                            onclick="annotate({{$sentence_pair["pair_id"]}})"
+                                            class="btn btn-dark text-center col-centered"
+                                            id="btn_submit_{{$sentence_pair["pair_id"]}}">
                                         Submit
                                     </button>
                                 </div>
@@ -60,10 +71,31 @@
 
 @section('scripts')
     <script type="text/javascript">
+        function markTrue(pair_id) {
+            console.log("markTrue()");
+            annotation = 0;
+
+            hide_elements(pair_id);
+        }
+
+        function hide_elements(pair_id) {
+            // hide 'true-false' div
+            $('#true-false_' + pair_id).fadeOut('fast');
+
+            // show submit button
+            $('#btn_submit_' + pair_id).css('display', 'block');
+        }
+
+        function markFalse(pair_id) {
+            console.log("markFalse()");
+            annotation = 2;
+
+            hide_elements(pair_id);
+        }
+
         var user_id = $('#user_id').val();
-        function annotate(button, pair_id) {
-            console.log("button:", button, "\nPairID:", pair_id);
-            var sel_button = button;
+
+        function annotate(pair_id) {
             $.ajax({
                 url: 'annotations/create',
                 method: 'post',
@@ -76,14 +108,11 @@
                 headers: {},
                 success: function (res) {
                     console.log(res);
-                    $('#btn_edit_submission').show();
-                    $(sel_button).fadeOut( "slow", function() {
-                        // Animation complete.
-                    });
-                    // console.log(sel_button);
+                    $('#btn_submit_' + pair_id).fadeOut("fast");
+                    $('#btn_submitted_' + pair_id).fadeIn('fast');
                 },
                 error: function (xhr, status, error) {
-                    console.log(error);
+                    console.log(status, " ", error);
                 }
             });
         }
