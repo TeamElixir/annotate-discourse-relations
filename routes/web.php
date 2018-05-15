@@ -35,9 +35,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('annotations/create', 'AnnotationsController@createAnnotation');
+
+
+// API
 Route::get('/api/pairs', 'api\SentencePairsApi@search');
 Route::get('/api/sentences', 'api\SentencesApi@search');
-
 Route::get('/api/annotations', 'api\AnnotationsApi@getAllAnnotations');
 Route::get('/api/annotations/{user_id}','api\AnnotationsApi@getAnnotationsOfuser');
-Route::post('annotations/create', 'AnnotationsController@createAnnotation');
+Route::get('/api/relations', 'api\RelationsApi@getAllRelations');
+Route::get('/api/relations/{id}', 'api\RelationsApi@getRelationById');

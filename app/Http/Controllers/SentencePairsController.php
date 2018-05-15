@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Relation;
 use App\SentencePair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,18 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class SentencePairsController extends Controller
 {
+    public static $relations = array();
 
-    public static $relations = [
-        1 => 'Elaboration',
-        2 => 'Subsumption',
-        3 => 'Contradiction',
-        4 => 'No Relation'
-    ];
+    private static function populateRelationsArray() {
+        $all_relations = Relation::all();
+        foreach ($all_relations as $relation) {
+            self::$relations[$relation->id] = $relation->relation;
+        }
+    }
 
 
     public static function getAllSentencePairs()
     {
-
+        self::populateRelationsArray();
         $all_sentence_pairs = SentencePair::all();
         $pairs = array();
         foreach ($all_sentence_pairs as $sentence_pair) {
@@ -34,6 +36,8 @@ class SentencePairsController extends Controller
 
     public static function getSentencePairById($id)
     {
+        self::populateRelationsArray();
+        
         // all annotations by the currently logged in user
         $auth_users_annotations = AnnotationsController::getAnnotationsOfuser(Auth::user()->id);
         $user_already_annotated = false;
