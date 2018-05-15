@@ -34,21 +34,21 @@ class SentencePairsController extends Controller
         return $pairs;
     }
 
-    public static function getSentencePairById($id)
+    public static function getSentencePairById($pair_id)
     {
         self::populateRelationsArray();
-        
+
         // all annotations by the currently logged in user
         $auth_users_annotations = AnnotationsController::getAnnotationsOfuser(Auth::user()->id);
         $user_already_annotated = false;
 
         foreach ($auth_users_annotations as $annotation) {
-            if ($annotation->id == $id) {
+            if ($annotation->pair_id == $pair_id) {
                 $user_already_annotated = true;
             }
         }
 
-        $sentence_pair = SentencePair::find($id);
+        $sentence_pair = SentencePair::find($pair_id);
         $source_sntc = SentencesController::getSentenceById($sentence_pair["source_sntc_id"]);
         $target_sntc = SentencesController::getSentenceById($sentence_pair["target_sntc_id"]);
         $relation_1 = self::$relations[$sentence_pair["relation_1"]];

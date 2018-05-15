@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Annotation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnnotationsController extends Controller
 {
@@ -22,13 +23,12 @@ class AnnotationsController extends Controller
         $pair_id = $request->pair_id;
         $annotation = $request->annotation;
 
-        $annotation = new Annotation();
-        $annotation->user_id = $user_id;
-        $annotation->pair_id = $pair_id;
-        $annotation->annotation = $annotation;
+        DB::table('annotations')->insert([
+            'user_id' => $user_id,
+            'pair_id' => $pair_id,
+            'annotation' => $annotation
+        ]);
 
-        $annotation->save();
-
-        return redirect()->back();
+        return "annotated";
     }
 }

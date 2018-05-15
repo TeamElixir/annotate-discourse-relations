@@ -19,9 +19,11 @@ class PagesController extends Controller
     
     public function getHomePage()
     {
+        $auth_user = Auth::user();
         $sentence_pairs = SentencePairsController::getAllSentencePairs();
         return view('welcome', [
             'sentence_pairs' => $sentence_pairs,
+            'auth_user' => $auth_user
         ]);
     }
 }

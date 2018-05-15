@@ -44,8 +44,16 @@
                                 </div>
                             @else
                                 <div>
-                                    <button class="btn btn-primary">True</button>
-                                    <button class="btn btn-warning">False</button>
+                                    <button id="btn_true" class="btn btn-primary">True</button>
+                                    <button id="btn_false" class="btn btn-warning">False</button>
+                                </div>
+                                <div>
+                                    {{csrf_field()}}
+                                    <input type="hidden" id="user_id" name="user_id" value="{{$auth_user->id}}">
+                                    <input type="hidden" id="pair_id" name="pair_id"
+                                           value="{{$sentence_pair["pair_id"]}}">
+                                    <input type="hidden" id="annotation" name="annotation" value="1">
+                                    <button class="btn btn-dark" id="btn_submit">Submit</button>
                                 </div>
                             @endif
                         </div>
@@ -55,4 +63,39 @@
         </div>
         <hr>
     @endforeach
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+        var user_id = $('#user_id').val();
+        var pair_id = $('#pair_id').val();
+        var annotation = -1;
+        $('#btn_true').button().click(function () {
+            annotation = 1;
+        });
+
+        $('#btn_false').button().click(function () {
+            annotation = 2;
+        });
+
+        $('#btn_submit').button().click(function () {
+            $.ajax({
+                url: 'annotations/create',
+                method: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'user_id': user_id,
+                    'pair_id': pair_id,
+                    'annotation': annotation
+                },
+                headers: {},
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
 @stop
