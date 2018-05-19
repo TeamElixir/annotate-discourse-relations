@@ -51,15 +51,16 @@ class SentencePairsController extends Controller
         $sentence_pair = SentencePair::find($pair_id);
         $source_sntc = SentencesController::getSentenceById($sentence_pair["source_sntc_id"]);
         $target_sntc = SentencesController::getSentenceById($sentence_pair["target_sntc_id"]);
-        $relation_1 = self::$relations[$sentence_pair["relation_1"]];
-        $relation_2 = self::$relations[$sentence_pair["relation_2"]];
+        $relation = self::$relations[$sentence_pair["relation"]];
+
+//        echo $relation;
+//        dd();
 
         $pair_object = [
             'pair_id' => $sentence_pair->id,
             'source_sntc' => $source_sntc,
             'target_sntc' => $target_sntc,
-            'relation_1' => $relation_1,
-            'relation_2' => $relation_2,
+            'relation' => $relation,
             'user_already_annotated' => $user_already_annotated
         ];
 

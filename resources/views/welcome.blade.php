@@ -24,7 +24,7 @@
                         <div><strong>Target Sentence</strong>: {{$sentence_pair["target_sntc"]->sentence}}</div>
                     </li>
                     <li class="list-group-item">
-                        <strong>Relation</strong>: {{$sentence_pair["relation_1"]}}
+                        <strong>Relation</strong>: {{$sentence_pair["relation"]}}
                     </li>
                     <br>
                     <div class="row">
