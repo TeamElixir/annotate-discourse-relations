@@ -8,54 +8,57 @@
     <div class="row">
         <h3>FYP OBLIE</h3>
     </div>
+    <div class="row col-md-8 col-centered">
+        {{ $sentence_pairs->links() }}
+    </div>
 
     @foreach($sentence_pairs as $sentence_pair)
         <div class="row">
             <div data-aos="fade-left"
                  data-aos-duration="700"
                  class="col-md-8 col-centered">
-                <h5>Pair {{$sentence_pair["pair_id"]}}</h5>
+                <h5>Pair {{$sentence_pair->id}}</h5>
                 <ul
                         class="list-group">
                     <li class="list-group-item">
-                        <div><strong>Source Sentence</strong>: {{$sentence_pair["source_sntc"]->sentence}}</div>
+                        <div><strong>Source Sentence</strong>: {{$sentence_pair->SourceSentence->sentence}}</div>
                     </li>
                     <li class="list-group-item">
-                        <div><strong>Target Sentence</strong>: {{$sentence_pair["target_sntc"]->sentence}}</div>
+                        <div><strong>Target Sentence</strong>: {{$sentence_pair->TargetSentence->sentence}}</div>
                     </li>
                     <li class="list-group-item">
-                        <strong>Relation</strong>: {{$sentence_pair["relation"]}}
+                        <strong>Relation</strong>: {{$sentence_pair->OriginalRelation}}
                     </li>
                     <br>
                     <div class="row">
                         <div class="col-md-8 col-centered text-center">
                             @if($sentence_pair["user_already_annotated"])
                                 <div>
-                                    <div id="btn_submitted_{{$sentence_pair["pair_id"]}}"
+                                    <div id="btn_submitted_{{$sentence_pair->id}}"
                                          class="btn btn-outline-info disabled">
                                         Submitted
                                     </div>
                                 </div>
                             @else
-                                <div id="true-false_{{$sentence_pair["pair_id"]}}">
-                                    <button id="btn_true_{{$sentence_pair["pair_id"]}}"
-                                            onclick="markTrue({{$sentence_pair["pair_id"]}})"
+                                <div id="true-false_{{$sentence_pair->id}}">
+                                    <button id="btn_true_{{$sentence_pair->id}}"
+                                            onclick="markTrue({{$sentence_pair->id}})"
                                             class="btn btn-primary">True
                                     </button>
-                                    <button id="btn_false_{{$sentence_pair["pair_id"]}}"
-                                            onclick="markFalse({{$sentence_pair["pair_id"]}})"
+                                    <button id="btn_false_{{$sentence_pair->id}}"
+                                            onclick="markFalse({{$sentence_pair->id}})"
                                             class="btn btn-warning">False
                                     </button>
                                 </div>
                                 <div>
                                     <input type="hidden" id="user_id" name="user_id" value="{{$auth_user->id}}">
                                     <input type="hidden" id="pair_id" name="pair_id"
-                                           value="{{$sentence_pair["pair_id"]}}">
+                                           value="{{$sentence_pair->id}}">
                                     <input type="hidden" id="annotation" name="annotation" value="1">
                                     <button style="display: none;"
-                                            onclick="annotate({{$sentence_pair["pair_id"]}})"
+                                            onclick="annotate({{$sentence_pair->id}})"
                                             class="btn btn-dark text-center col-centered"
-                                            id="btn_submit_{{$sentence_pair["pair_id"]}}">
+                                            id="btn_submit_{{$sentence_pair->id}}">
                                         Submit
                                     </button>
                                 </div>
@@ -67,6 +70,9 @@
         </div>
         <hr>
     @endforeach
+    <div class="row col-md-8 col-centered">
+        {{ $sentence_pairs->links() }}
+    </div>
 @stop
 
 @section('scripts')
