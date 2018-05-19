@@ -31,7 +31,7 @@
                     </li>
                     <br>
                     <div class="row">
-                        <div class="col-md-8 col-centered text-center">
+                        <div class="col-md-6 col-centered text-center">
                             @if($sentence_pair->UserAlreadyAnnotated == true)
                                 <div>
                                     <div id="btn_submitted_{{$sentence_pair->id}}"
@@ -40,14 +40,20 @@
                                     </div>
                                 </div>
                             @else
-                                <div id="true-false_{{$sentence_pair->id}}">
-                                    <button id="btn_true_{{$sentence_pair->id}}"
-                                            onclick="markTrue({{$sentence_pair->id}})"
-                                            class="btn btn-primary">True
-                                    </button>
-                                    <button id="btn_false_{{$sentence_pair->id}}"
-                                            onclick="markFalse({{$sentence_pair->id}})"
-                                            class="btn btn-warning">False
+                                <div id="dropdown_block_{{$sentence_pair->id}}">
+                                    <select class="custom-select" id="dropdown_{{$sentence_pair->id}}">
+                                        <option value="0" selected>True</option>
+                                        @foreach($relations as $relation)
+                                            @if(!($relation->id == $sentence_pair->relation))
+                                                <option value="{{$relation->id}}">{{$relation->relation}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <button id="btn_submit_{{$sentence_pair->id}}"
+                                            onclick="annotate({{$sentence_pair->id}})"
+                                            class="btn btn-primary">Submit
                                     </button>
                                 </div>
                                 <div>
@@ -77,13 +83,6 @@
 
 @section('scripts')
     <script type="text/javascript">
-        function markTrue(pair_id) {
-            console.log("markTrue()");
-            annotation = 0;
-
-            hide_elements(pair_id);
-        }
-
         function hide_elements(pair_id) {
             // hide 'true-false' div
             $('#true-false_' + pair_id).fadeOut('fast');
@@ -92,16 +91,11 @@
             $('#btn_submit_' + pair_id).css('display', 'block');
         }
 
-        function markFalse(pair_id) {
-            console.log("markFalse()");
-            annotation = 2;
-
-            hide_elements(pair_id);
-        }
-
         var user_id = $('#user_id').val();
 
         function annotate(pair_id) {
+            var annotation = $('#dropdown_' + pair_id).val();
+            console.log('annotation: ', annotation);
             $.ajax({
                 url: 'annotations/create',
                 method: 'post',
@@ -114,23 +108,13 @@
                 headers: {},
                 success: function (res) {
                     console.log(res);
-                    $('#btn_submit_' + pair_id).fadeOut("fast");
-                    $('#btn_submitted_' + pair_id).fadeIn('fast');
+                    $('#dropdown_block_' + pair_id).fadeOut("fast");
+                    $('#btn_submitted_' + pair_id).show('fast');
                 },
                 error: function (xhr, status, error) {
                     console.log(status, " ", error);
                 }
             });
         }
-
-        var annotation = -1;
-
-        $('#btn_true').button().click(function () {
-            annotation = 1;
-        });
-
-        $('#btn_false').button().click(function () {
-            annotation = 2;
-        });
     </script>
 @stop
