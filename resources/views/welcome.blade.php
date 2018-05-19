@@ -32,7 +32,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-8 col-centered text-center">
-                            @if($sentence_pair["user_already_annotated"])
+                            @if($sentence_pair->UserAlreadyAnnotated == true)
                                 <div>
                                     <div id="btn_submitted_{{$sentence_pair->id}}"
                                          class="btn btn-outline-info disabled">
