@@ -16,9 +16,12 @@ class CreateRelationsTable extends Migration
         Schema::create('relations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('relation');
+            $table->integer('simple_relation_id');
             $table->text('description');
             $table->text('text_span_1');
             $table->text('text_span_2');
+
+            $table->foreign('simple_relation_id')->references('id')->on('simple_relation');
         });
     }
 
