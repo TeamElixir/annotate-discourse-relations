@@ -41,11 +41,6 @@ Route::post('annotations/create', 'AnnotationsController@createAnnotation');
 Route::get('login/google', 'Auth\LoginController@redirectToProvider')->name('redirect-to-provider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback')->name('handle-provider-callback');
 
-Route::get('/temp', function () {
-   return 'successful';
-});
-
-
 // API
 Route::get('/api/pairs', 'api\SentencePairsApi@search');
 Route::get('/api/sentences', 'api\SentencesApi@search');

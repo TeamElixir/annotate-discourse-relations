@@ -59,9 +59,10 @@ class LoginController extends Controller
         return redirect()->route('home');
     }
 
-    public function createUser($user) {
+    public function createUser($user)
+    {
         $authUser = User::where('google_id', $user->id)->first();
-        if($authUser) {
+        if ($authUser) {
             return $authUser;
         }
 
