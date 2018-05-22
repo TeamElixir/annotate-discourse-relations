@@ -17,7 +17,7 @@ class PagesController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function getHomePage()
     {
         $auth_user = Auth::user();

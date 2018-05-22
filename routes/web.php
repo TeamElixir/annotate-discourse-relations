@@ -37,6 +37,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('annotations/create', 'AnnotationsController@createAnnotation');
 
+// Google login
+Route::get('login/google', 'Auth\LoginController@redirectToProvider')->name('redirect-to-provider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback')->name('handle-provider-callback');
+
+Route::get('/temp', function () {
+   return 'successful';
+});
+
 
 // API
 Route::get('/api/pairs', 'api\SentencePairsApi@search');
