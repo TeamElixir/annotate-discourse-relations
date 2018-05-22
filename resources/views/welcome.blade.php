@@ -32,12 +32,9 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6 col-centered text-center">
-                            @if($sentence_pair->UserAlreadyAnnotated == true)
+                            @if($sentence_pair->UserAlreadyAnnotated)
                                 <div>
-                                    <div id="btn_submitted_{{$sentence_pair->id}}"
-                                         class="btn btn-outline-info disabled">
-                                        Submitted
-                                    </div>
+                                    <h6 id="btn_submitted_{{$sentence_pair->id}}"></h6>
                                 </div>
                             @else
                                 <div id="dropdown_block_{{$sentence_pair->id}}">
@@ -109,7 +106,7 @@
                 success: function (res) {
                     console.log(res);
                     $('#dropdown_block_' + pair_id).fadeOut("fast");
-                    $('#btn_submitted_' + pair_id).show('fast');
+                    $('#btn_submitted_' + pair_id).append('Submitted');
                 },
                 error: function (xhr, status, error) {
                     console.log(status, " ", error);
