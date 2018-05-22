@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -51,7 +53,22 @@ class LoginController extends Controller
             return redirect()->route('redirect-to-provider');
         }
 
-        dd($user);
-        return redirect('/temp');
+        $authUser = $this->createUser($user);
+        Auth::login($authUser, true);
+
+        return redirect()->route('home');
+    }
+
+    public function createUser($user) {
+        $authUser = User::where('google_id', $user->id)->first();
+        if($authUser) {
+            return $authUser;
+        }
+
+        return User::create([
+            'name' => $user->name,
+            'google_id' => $user->id,
+            'email' => $user->email
+        ]);
     }
 }
