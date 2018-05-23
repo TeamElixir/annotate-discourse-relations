@@ -26,12 +26,13 @@ class SentencePairsController extends Controller
         //sql query : select cluster_id, user1_id from <table> where user2_id = null;
         //the results are stored in following array (so it would be array of arrays;
 
-        $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_id = null');
+        $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_id = 0');
+//        dd($u2_blank_clusters);
 
         foreach ($u2_blank_clusters as $cluster) {
             if ($cluster->user1_id != $user_id) {
                 //update <table> where cluster_id = $cluster[0] set cluster_id = $cluster[0], user1_id=$cluster[1], user2_id=$user_id
-                DB::update('update  ' . ClusterUsers::$table_name . ' set user2_id = ? where cluster_id = ?', ['$user_id', $cluster->cluster_id]);
+                DB::update('update  ' . ClusterUsers::$table_name . ' set user2_id = ? where cluster_id = ?', [$user_id, $cluster->cluster_id]);
                 return $cluster->cluster_id;
             }
         }
