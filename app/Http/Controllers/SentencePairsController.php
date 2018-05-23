@@ -16,4 +16,8 @@ class SentencePairsController extends Controller
 
         return $all_sentence_pairs;
     }
+
+    public static function getSentencePairsForUser($user_id){
+        
+    }
 }

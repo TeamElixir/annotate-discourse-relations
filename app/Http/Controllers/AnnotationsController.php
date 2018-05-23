@@ -46,7 +46,7 @@ class AnnotationsController extends Controller
         foreach($u2_blank_clusters as $cluster){
             if($cluster->user1_id != $user_id){
                 //update <table> where cluster_id = $cluster[0] set cluster_id = $cluster[0], user1_id=$cluster[1], user2_id=$user_id
-                DB::update('update  table1 set user2_id = ? where cluster_id = ?',['$user_id',$cluster->cluster_id]);
+                DB::update('update  table1 set user2_id = ?, user2_completed = 1 where cluster_id = ?',['$user_id',$cluster->cluster_id]);
                 return true;
             }
         }
@@ -61,7 +61,7 @@ class AnnotationsController extends Controller
         $current_maximum_cluster_id = DB::select('select max(cluster_id) from table1');
         $new_cluster_id = intval($current_maximum_cluster_id[0]) + 1;
         //insert into <table> values $cluster_id,$user_id,null;
-        DB::insert('insert into table1 (cluster_id, user1_id, user2_id) values (?,?,?)',[$cluster_id,$user_id,null]);
+        DB::insert('insert into table1 (cluster_id, user1_id, user1_completed, user2_id, user2_completed) values (?, ?, ?, ?, ?)',[$cluster_id, $user_id, 0, null, null]);
     }
 
     //complete cluster assignment
