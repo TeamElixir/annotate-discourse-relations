@@ -15,6 +15,7 @@ class SentencePair extends Model
         'SourceSentence' => '',
         'TargetSentence' => '',
         'OriginalRelation' => '',
+        'SimpleRelation' => '',
         'UserAlreadyAnnotated' => ''
     ];
 
@@ -26,14 +27,14 @@ class SentencePair extends Model
     public function getOriginalRelationAttribute()
     {
         $r = Relation::find($this->relation);
-        return $r->relation;
+        return $r;
     }
 
-    public function getAuthUserIdAttribute()
-    {
-        $id = Auth::user()->id;
-        return $id;
+    public function getSimpleRelationAttribute() {
+        $r = $this->getOriginalRelationAttribute();
+        return $r->simpleRelation;
     }
+
 
     public function getUserAlreadyAnnotatedAttribute()
     {

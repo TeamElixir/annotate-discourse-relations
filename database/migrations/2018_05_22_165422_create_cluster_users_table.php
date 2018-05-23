@@ -16,8 +16,10 @@ class CreateClusterUsersTable extends Migration
         Schema::create('cluster_users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cluster_id');
-            $table->integer('user_id_1');
-            $table->integer('user_id_2');
+            $table->integer('user1_id');
+            $table->integer('user2_id');
+            $table->integer('user1_completed');
+            $table->integer('user2_completed');
             $table->timestamps();
         });
     }

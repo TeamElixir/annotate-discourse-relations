@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Relation;
+use App\SimpleRelation;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -21,12 +22,14 @@ class PagesController extends Controller
     public function getHomePage()
     {
         $auth_user = Auth::user();
-        $relations = Relation::all();
+        $original_relations = Relation::all();
+        $simple_relations = SimpleRelation::all();
         $sentence_pairs = SentencePairsController::getAllSentencePairs();
         return view('welcome', [
             'sentence_pairs' => $sentence_pairs,
             'auth_user' => $auth_user,
-            'relations' => $relations
+            'original_relations' => $original_relations,
+            'simple_relations' => $simple_relations
         ]);
     }
 }

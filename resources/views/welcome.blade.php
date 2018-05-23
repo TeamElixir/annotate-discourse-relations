@@ -21,13 +21,13 @@
                 <ul
                         class="list-group">
                     <li class="list-group-item">
-                        <div><strong>Source Sentence</strong>: {{$sentence_pair->SourceSentence->sentence}}</div>
+                        <div><strong>Sentence 1</strong>: {{$sentence_pair->SourceSentence->sentence}}</div>
                     </li>
                     <li class="list-group-item">
-                        <div><strong>Target Sentence</strong>: {{$sentence_pair->TargetSentence->sentence}}</div>
+                        <div><strong>Sentence 2</strong>: {{$sentence_pair->TargetSentence->sentence}}</div>
                     </li>
                     <li class="list-group-item">
-                        <strong>Relation</strong>: {{$sentence_pair->OriginalRelation}}
+                        <strong>Relation</strong>: {{$sentence_pair->OriginalRelation->simpleRelation->relation}}
                     </li>
                     <br>
                     <div class="row">
@@ -39,7 +39,7 @@
                             @else
                                 <div id="dropdown_block_{{$sentence_pair->id}}">
                                     <select class="custom-select" id="dropdown_{{$sentence_pair->id}}">
-                                        <option value="0" selected>True</option>
+                                        <option value="0" selected><strong>{{$sentence_pair->SimpleRelation->relation}}</strong> is Correct!</option>
                                         @foreach($relations as $relation)
                                             @if(!($relation->id == $sentence_pair->relation))
                                                 <option value="{{$relation->id}}">{{$relation->relation}}</option>
