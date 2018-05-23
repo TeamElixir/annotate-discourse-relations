@@ -22,21 +22,17 @@ class AnnotationsController extends Controller
         return $annotations;
     }
 
-    public function createAnnotation(Request $request)
+    public static function createAnnotation($user_id, $pair_id, $annotation)
     {
-        $user_id = $request->user_id;
-        $pair_id = $request->pair_id;
-        $annotation = $request->annotation;
-
         DB::table('annotations')->insert([
             'user_id' => $user_id,
             'pair_id' => $pair_id,
             'annotation' => $annotation
         ]);
 
-//        //new implementation
-//        process_cluster_mapping($user_id);
-//        save_record($pair_id, $user_id, $annotation);
+        //new implementation
+        self::process_cluster_mapping($user_id);
+        self::save_record($pair_id, $user_id, $annotation);
 
         return "annotated";
     }
@@ -74,9 +70,9 @@ class AnnotationsController extends Controller
     public static function process_cluster_mapping($user_id)
     {
         //to check whether all the user2 sections above are filled
-        if (!update_U2_blank($user_id)) {
+        if (!self::update_U2_blank($user_id)) {
             //if no blank user2 sections availble, create cluster_id and insert as user1
-            update_U1_blank($user_id);
+            self::update_U1_blank($user_id);
         }
     }
 

@@ -27,7 +27,6 @@ class SentencePairsController extends Controller
         //the results are stored in following array (so it would be array of arrays;
 
         $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_id = 0');
-//        dd($u2_blank_clusters);
 
         foreach ($u2_blank_clusters as $cluster) {
             if ($cluster->user1_id != $user_id) {
@@ -64,7 +63,9 @@ class SentencePairsController extends Controller
     {
         $relevant_cluster_id = -1;
         //if a user gives up in middle, next time he refresh, he will recieve the assigned set
-        $not_completed_cluster_id = DB::select('select cluster_id from cluster_users where (user1_id = ? and user1_completed = 0) or (user2_id = ? and user2_completed =0)', [$user_id, $user_id])[0];
+        $not_completed_cluster_id = DB::select('select cluster_id from ' . ClusterUsers::$table_name . ' where 
+                                  (user1_id = ? and user1_completed = 0) or 
+                                  (user2_id = ? and user2_completed =0)', [$user_id, $user_id])[0];
         if ($not_completed_cluster_id == null) {
             $relevant_cluster_id = $not_completed_cluster_id->cluster_id;
         } else {

@@ -34,11 +34,15 @@ class PagesController extends Controller
         $annotation_of_pair_3 = $request->annotation_of_pair_3;
         $annotation_of_pair_4 = $request->annotation_of_pair_4;
 
-        echo 'ID: '.$id_of_pair_0.', Annotation: '.$annotation_of_pair_0.'<br>';
-        echo 'ID: '.$id_of_pair_1.', Annotation: '.$annotation_of_pair_1.'<br>';
-        echo 'ID: '.$id_of_pair_2.', Annotation: '.$annotation_of_pair_2.'<br>';
-        echo 'ID: '.$id_of_pair_3.', Annotation: '.$annotation_of_pair_3.'<br>';
-        echo 'ID: '.$id_of_pair_4.', Annotation: '.$annotation_of_pair_4.'<br>';
+        $user_id = Auth::user()->id;
+
+        AnnotationsController::createAnnotation($user_id, $id_of_pair_0, $annotation_of_pair_0);
+        AnnotationsController::createAnnotation($user_id, $id_of_pair_1, $annotation_of_pair_1);
+        AnnotationsController::createAnnotation($user_id, $id_of_pair_2, $annotation_of_pair_2);
+        AnnotationsController::createAnnotation($user_id, $id_of_pair_3, $annotation_of_pair_3);
+        AnnotationsController::createAnnotation($user_id, $id_of_pair_4, $annotation_of_pair_4);
+
+        return redirect()->back();
     }
 
     public function getHomePage()
