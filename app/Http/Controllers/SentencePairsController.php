@@ -64,18 +64,16 @@ class SentencePairsController extends Controller
     {
         $relevant_cluster_id = -1;
         //if a user gives up in middle, next time he refresh, he will recieve the assigned set
-        $not_completed_cluster_id = DB::select('select cluster_id from cluster_users where (user1_id = ? and user1_completed = 0) or (user2_id = ? and user2_completed =0)',[$user_id, $user_id])[0];
-        if($not_completed_cluster_id == null){
+        $not_completed_cluster_id = DB::select('select cluster_id from cluster_users where (user1_id = ? and user1_completed = 0) or (user2_id = ? and user2_completed =0)', [$user_id, $user_id])[0];
+        if ($not_completed_cluster_id == null) {
             $relevant_cluster_id = $not_completed_cluster_id->cluster_id;
-        }
-
-        else{
+        } else {
             $relevant_cluster_id = self::update_U2_blank($user_id);
             if ($relevant_cluster_id == -1) {
                 $relevant_cluster_id = self::create_new_cluster_mapping($user_id);
             }
         }
-        
+
 
         //return sentence-pair ids only : change accordingly
         $sentence_pairs = DB::select('select pair_id, source_sntc_id, target_sntc_id, relation, cluster_id 

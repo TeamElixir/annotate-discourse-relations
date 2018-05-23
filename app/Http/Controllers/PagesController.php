@@ -17,6 +17,28 @@ class PagesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+    }
+
+    public function tempPost(Request $request)
+    {
+        $id_of_pair_0 = $request->id_of_pair_0;
+        $id_of_pair_1 = $request->id_of_pair_1;
+        $id_of_pair_2 = $request->id_of_pair_2;
+        $id_of_pair_3 = $request->id_of_pair_3;
+        $id_of_pair_4 = $request->id_of_pair_4;
+
+        $annotation_of_pair_0 = $request->annotation_of_pair_0;
+        $annotation_of_pair_1 = $request->annotation_of_pair_1;
+        $annotation_of_pair_2 = $request->annotation_of_pair_2;
+        $annotation_of_pair_3 = $request->annotation_of_pair_3;
+        $annotation_of_pair_4 = $request->annotation_of_pair_4;
+
+        echo 'ID: '.$id_of_pair_0.', Annotation: '.$annotation_of_pair_0.'<br>';
+        echo 'ID: '.$id_of_pair_1.', Annotation: '.$annotation_of_pair_1.'<br>';
+        echo 'ID: '.$id_of_pair_2.', Annotation: '.$annotation_of_pair_2.'<br>';
+        echo 'ID: '.$id_of_pair_3.', Annotation: '.$annotation_of_pair_3.'<br>';
+        echo 'ID: '.$id_of_pair_4.', Annotation: '.$annotation_of_pair_4.'<br>';
     }
 
     public function getHomePage()

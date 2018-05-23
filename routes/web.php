@@ -15,6 +15,10 @@ Route::get('/', [
     'uses' => 'PagesController@getHomePage',
 ]);
 
+Route::post('/not-defined', [
+    'uses' => 'PagesController@tempPost'
+])->name('not-defined');
+
 Route::get('/temp', [
     'uses' => 'TempController@shuffleAndCluster'
 ]);
