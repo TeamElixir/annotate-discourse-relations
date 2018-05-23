@@ -15,8 +15,7 @@
                  data-aos-duration="700"
                  class="col-md-8 col-centered">
                 <h5>Pair {{$sentence_pair->pair_id}}</h5>
-                <ul
-                        class="list-group">
+                <ul class="list-group">
                     <li class="list-group-item">
                         <div><strong>Sentence 1</strong>: {{$sentence_pair->SourceSentence->sentence}}</div>
                     </li>
@@ -29,42 +28,33 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6 col-centered text-center">
-{{--                            @if($sentence_pair->UserAlreadyAnnotated)--}}
-                                <div>
-                                    <h6 id="btn_submitted_{{$sentence_pair->pair_id}}"></h6>
-                                </div>
-                            {{--@else--}}
-                                <div id="dropdown_block_{{$sentence_pair->pair_id}}">
-                                    <select class="custom-select" id="dropdown_{{$sentence_pair->pair_id}}">
-                                        <option value="0" selected>
-                                            <strong>{{$sentence_pair->SimpleRelation->relation}}</strong> is Correct!
-                                        </option>
-                                        @foreach($original_relations as $relation)
-                                            @if(!($relation->id == $sentence_pair->relation))
-                                                <option value="{{$relation->id}}">{{$relation->relation}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <br>
-                                    <br>
-                                    <button id="btn_submit_{{$sentence_pair->pair_id}}"
-                                            onclick="annotate({{$sentence_pair->pair_id}})"
-                                            class="btn btn-primary">Submit
-                                    </button>
-                                </div>
-                                <div>
-                                    <input type="hidden" id="user_id" name="user_id" value="{{$auth_user->id}}">
-                                    <input type="hidden" id="pair_id" name="pair_id"
-                                           value="{{$sentence_pair->pair_id}}">
-                                    <input type="hidden" id="annotation" name="annotation" value="1">
-                                    <button style="display: none;"
-                                            onclick="annotate({{$sentence_pair->pair_id}})"
-                                            class="btn btn-dark text-center col-centered"
-                                            id="btn_submit_{{$sentence_pair->pair_id}}">
-                                        Submit
-                                    </button>
-                                </div>
-                            {{--@endif--}}
+                            <div id="dropdown_block_{{$sentence_pair->pair_id}}">
+                                <select class="custom-select" id="dropdown_{{$sentence_pair->pair_id}}">
+                                    <option value="0" selected>
+                                        <strong>{{$sentence_pair->SimpleRelation->relation}}</strong> is Correct!
+                                    </option>
+                                    @foreach($simple_relations as $simple_relation)
+                                        @if(!($simple_relation->id == $sentence_pair->SimpleRelation->id))
+                                            <option value="{{$simple_relation->id}}">No,
+                                                it's {{$simple_relation->relation}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <br>
+                                <br>
+                            </div>
+                            <div>
+                                <input type="hidden" id="user_id" name="user_id" value="{{$auth_user->id}}">
+                                <input type="hidden" id="pair_id" name="pair_id"
+                                       value="{{$sentence_pair->pair_id}}">
+                                <input type="hidden" id="annotation" name="annotation" value="1">
+                                <button style="display: none;"
+                                        onclick="annotate({{$sentence_pair->pair_id}})"
+                                        class="btn btn-dark text-center col-centered"
+                                        id="btn_submit_{{$sentence_pair->pair_id}}">
+                                    Submit
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </ul>
@@ -72,6 +62,13 @@
         </div>
         <hr>
     @endforeach
+
+    <div class="row col-md-6 col-centered">
+        <button class="btn btn-info">Submit</button>
+    </div>
+    <br>
+    <br>
+    <br>
 @stop
 
 @section('scripts')
