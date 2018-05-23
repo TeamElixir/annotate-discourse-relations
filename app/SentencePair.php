@@ -31,7 +31,8 @@ class SentencePair extends Model
         return $r;
     }
 
-    public function getSimpleRelationAttribute() {
+    public function getSimpleRelationAttribute()
+    {
         $r = $this->getOriginalRelationAttribute();
         return $r->simpleRelation;
     }

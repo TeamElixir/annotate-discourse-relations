@@ -8,16 +8,13 @@
     <div class="row">
         <h3>FYP OBLIE</h3>
     </div>
-    <div class="row col-md-8 col-centered">
-        {{ $sentence_pairs->links() }}
-    </div>
 
     @foreach($sentence_pairs as $sentence_pair)
         <div class="row">
             <div data-aos="fade-left"
                  data-aos-duration="700"
                  class="col-md-8 col-centered">
-                <h5>Pair {{$sentence_pair->id}}</h5>
+                <h5>Pair {{$sentence_pair->pair_id}}</h5>
                 <ul
                         class="list-group">
                     <li class="list-group-item">
@@ -32,14 +29,16 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6 col-centered text-center">
-                            @if($sentence_pair->UserAlreadyAnnotated)
+{{--                            @if($sentence_pair->UserAlreadyAnnotated)--}}
                                 <div>
-                                    <h6 id="btn_submitted_{{$sentence_pair->id}}"></h6>
+                                    <h6 id="btn_submitted_{{$sentence_pair->pair_id}}"></h6>
                                 </div>
-                            @else
-                                <div id="dropdown_block_{{$sentence_pair->id}}">
-                                    <select class="custom-select" id="dropdown_{{$sentence_pair->id}}">
-                                        <option value="0" selected><strong>{{$sentence_pair->SimpleRelation->relation}}</strong> is Correct!</option>
+                            {{--@else--}}
+                                <div id="dropdown_block_{{$sentence_pair->pair_id}}">
+                                    <select class="custom-select" id="dropdown_{{$sentence_pair->pair_id}}">
+                                        <option value="0" selected>
+                                            <strong>{{$sentence_pair->SimpleRelation->relation}}</strong> is Correct!
+                                        </option>
                                         @foreach($original_relations as $relation)
                                             @if(!($relation->id == $sentence_pair->relation))
                                                 <option value="{{$relation->id}}">{{$relation->relation}}</option>
@@ -48,24 +47,24 @@
                                     </select>
                                     <br>
                                     <br>
-                                    <button id="btn_submit_{{$sentence_pair->id}}"
-                                            onclick="annotate({{$sentence_pair->id}})"
+                                    <button id="btn_submit_{{$sentence_pair->pair_id}}"
+                                            onclick="annotate({{$sentence_pair->pair_id}})"
                                             class="btn btn-primary">Submit
                                     </button>
                                 </div>
                                 <div>
                                     <input type="hidden" id="user_id" name="user_id" value="{{$auth_user->id}}">
                                     <input type="hidden" id="pair_id" name="pair_id"
-                                           value="{{$sentence_pair->id}}">
+                                           value="{{$sentence_pair->pair_id}}">
                                     <input type="hidden" id="annotation" name="annotation" value="1">
                                     <button style="display: none;"
-                                            onclick="annotate({{$sentence_pair->id}})"
+                                            onclick="annotate({{$sentence_pair->pair_id}})"
                                             class="btn btn-dark text-center col-centered"
-                                            id="btn_submit_{{$sentence_pair->id}}">
+                                            id="btn_submit_{{$sentence_pair->pair_id}}">
                                         Submit
                                     </button>
                                 </div>
-                            @endif
+                            {{--@endif--}}
                         </div>
                     </div>
                 </ul>
@@ -73,9 +72,6 @@
         </div>
         <hr>
     @endforeach
-    <div class="row col-md-8 col-centered">
-        {{ $sentence_pairs->links() }}
-    </div>
 @stop
 
 @section('scripts')

@@ -24,7 +24,8 @@ class PagesController extends Controller
         $auth_user = Auth::user();
         $original_relations = Relation::all();
         $simple_relations = SimpleRelation::all();
-        $sentence_pairs = SentencePairsController::getAllSentencePairs();
+//        $sentence_pairs = SentencePairsController::getAllSentencePairs();
+        $sentence_pairs = SentencePairsController::getSentencePairsForUser($auth_user->id);
         return view('welcome', [
             'sentence_pairs' => $sentence_pairs,
             'auth_user' => $auth_user,
