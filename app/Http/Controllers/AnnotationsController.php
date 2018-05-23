@@ -55,13 +55,12 @@ class AnnotationsController extends Controller
     }
 
     //to create newcluster_id and assign user1 
-    public static function create_new_cluster_mapping($user_id){
+    public static function update_U1_blank($user_id){
         //select Max(cluster_id) from <table>;
         //assign to following variable;
         $current_maximum_cluster_id = DB::select('select max(cluster_id) from table1');
-        $new_cluster_id = intval($current_maximum_cluster_id[0]) + 1;
         //insert into <table> values $cluster_id,$user_id,null;
-        DB::insert('insert into table1 (cluster_id, user1_id, user1_completed, user2_id, user2_completed) values (?, ?, ?, ?, ?)',[$cluster_id, $user_id, 0, null, null]);
+        DB::update('update table1 set user1_id = ?, user1_completed = 1 where cluster_id = ?',[$user_id, $current_maximum_cluster_id]);
     }
 
     //complete cluster assignment
@@ -69,7 +68,7 @@ class AnnotationsController extends Controller
         //to check whether all the user2 sections above are filled
         if(!update_U2_blank($user_id)){
             //if no blank user2 sections availble, create cluster_id and insert as user1
-            create_new_cluster_mapping($user_id);
+            update_U1_blank($user_id);
         }
     }
 
