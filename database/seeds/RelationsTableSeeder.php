@@ -15,6 +15,15 @@ class RelationsTableSeeder extends Seeder
         Relation::truncate();
 
         Relation::create([
+            'id' => 0,
+            'relation' => 'No Relation',
+            'description' => 'There\'s no relation between the first sentence and the second',
+            'text_span_1' => '',
+            'text_span_2' => '',
+            'simple_relation_id' => 5
+        ]);
+
+        Relation::create([
             'id' => 1,
             'relation' => 'Identity',
             'description' => 'The same text appears in more than one location',

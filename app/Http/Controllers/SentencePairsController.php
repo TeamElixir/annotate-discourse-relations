@@ -65,7 +65,7 @@ class SentencePairsController extends Controller
         }
 
         //return sentence-pair ids only : change accordingly
-        $sentence_pair_ids = DB::select('select pair_id from ' . PairCluster::$table_name . ' where cluster_id = ?', [$relevant_cluster_id]);
+        $sentence_pair_ids = DB::select('select pair_id from ' . PairCluster::$table_name . ' where cluster_id = ? inner join table ' , [$relevant_cluster_id]);
         return $sentence_pair_ids;
 
     }

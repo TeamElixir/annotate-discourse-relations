@@ -1,0 +1,1 @@
+select pair_id, source_sntc_id, target_sntc_id, relation from annotated_sentence_pairs inner join pair_clusters on pair_id=annotated_sentence_pairs.id

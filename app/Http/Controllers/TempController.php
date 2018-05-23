@@ -34,20 +34,23 @@ class TempController extends Controller
         $pair_pool_size = sizeof($sentence_pair_array);
 
         //shuffle
-        for ($j = 0; $j < 10000; $j++) {
-            self::array_swap_assoc(mt_rand(0, $pair_pool_size - 1), mt_rand(0, $pair_pool_size - 1), $sentence_pair_array);
+        for ($j = 0; $j < 1000; $j++) {
+            $sentence_pair_array = self::array_swap_assoc(mt_rand(0, $pair_pool_size - 1), mt_rand(0, $pair_pool_size - 1), $sentence_pair_array);
         }
 
         //update the table pair_id - cluster_id
         $cluster_count = 0;
+        $k = 0;
+
         foreach ($sentence_pair_array as $pair) {
-            for ($k = 0; $k < 5; $k++) {
-                DB::insert('insert into ' . PairCluster::$table_name . ' (pair_id, cluster_id) values (?, ?)', [$pair, $cluster_count]);
+            DB::insert('insert into ' . PairCluster::$table_name . ' (pair_id, cluster_id) values (?, ?)', [$pair, $cluster_count]);
+            $k++;
+
+            if ($k == 5) {
+                $k = 0;
+                $cluster_count++;
             }
-            $cluster_count++;
         }
-
-
     }
 
 
