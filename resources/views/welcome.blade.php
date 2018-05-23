@@ -40,7 +40,7 @@
                                 <div id="dropdown_block_{{$sentence_pair->id}}">
                                     <select class="custom-select" id="dropdown_{{$sentence_pair->id}}">
                                         <option value="0" selected><strong>{{$sentence_pair->SimpleRelation->relation}}</strong> is Correct!</option>
-                                        @foreach($relations as $relation)
+                                        @foreach($original_relations as $relation)
                                             @if(!($relation->id == $sentence_pair->relation))
                                                 <option value="{{$relation->id}}">{{$relation->relation}}</option>
                                             @endif

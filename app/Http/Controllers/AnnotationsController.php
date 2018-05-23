@@ -34,9 +34,9 @@ class AnnotationsController extends Controller
             'annotation' => $annotation
         ]);
 
-        //new implementation
-        process_cluster_mapping($user_id);
-        save_record($pair_id, $user_id, $annotation);
+//        //new implementation
+//        process_cluster_mapping($user_id);
+//        save_record($pair_id, $user_id, $annotation);
 
         return "annotated";
     }
