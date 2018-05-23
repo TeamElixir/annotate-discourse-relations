@@ -9,6 +9,7 @@ use DB;
 
 class SentencePair extends Model
 {
+    public static $table_name = "annotated_sentence_pairs";
     protected $table = "annotated_sentence_pairs";
     protected $attributes = [
         'AuthUserId' => '',

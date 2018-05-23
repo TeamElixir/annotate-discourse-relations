@@ -15,6 +15,10 @@ Route::get('/', [
     'uses' => 'PagesController@getHomePage',
 ]);
 
+Route::get('/temp', [
+    'uses' => 'TempController@shuffleAndCluster'
+]);
+
 Route::get('/raw-sentences', [
     'uses' => 'SentencesController@getAllSentences',
 ]);
