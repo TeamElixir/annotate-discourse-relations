@@ -17,10 +17,6 @@ class SentencePairsController extends Controller
         return $all_sentence_pairs;
     }
 
-    public static function getSentencePairsForUser($user_id){
-        
-    }
-
     //to find if there is any cluster which is annotate just once
     public static function update_U2_blank($user_id){
         //sql query : select cluster_id, user1_id from <table> where user2_id = null;
@@ -31,11 +27,11 @@ class SentencePairsController extends Controller
         foreach($u2_blank_clusters as $cluster){
             if($cluster->user1_id != $user_id){
                 //update <table> where cluster_id = $cluster[0] set cluster_id = $cluster[0], user1_id=$cluster[1], user2_id=$user_id
-                DB::update('update  table1 set user2_id = ?, user2_completed = 1 where cluster_id = ?',['$user_id',$cluster->cluster_id]);
-                return true;
+                DB::update('update  table1 set user2_id = ? where cluster_id = ?',['$user_id',$cluster->cluster_id]);
+                return $cluster->cluster_id;
             }
         }
-        return false;
+        return -1;
 
     }
 
@@ -44,17 +40,31 @@ class SentencePairsController extends Controller
         //select Max(cluster_id) from <table>;
         //assign to following variable;
         $current_maximum_cluster_id = DB::select('select max(cluster_id) from table1');
-        $new_cluster_id = intval($current_maximum_cluster_id[0]) + 1;
+
+        if($current_maximum_cluster_id[0] != null){
+            $new_cluster_id = intval($current_maximum_cluster_id[0]) + 1;
+        }
+        else{
+            $new_cluster_id = 1;
+        }
+        
         //insert into <table> values $cluster_id,$user_id,null;
-        DB::insert('insert into table1 (cluster_id, user1_id, user1_completed, user2_id, user2_completed) values (?, ?, ?, ?, ?)',[$cluster_id, $user_id, 0, null, null]);
+        DB::insert('insert into table1 (cluster_id, user1_id, user1_completed, user2_id, user2_completed) values (?, ?, ?, ?, ?)',[$cluster_id, $user_id, 0, null, 0]);
+        return $new_cluster_id;
     }
 
     //complete cluster assignment
-    public static function process_cluster_mapping($user_id){
-        //to check whether all the user2 sections above are filled
-        if(!update_U2_blank($user_id)){
-            //if no blank user2 sections availble, create cluster_id and insert as user1
-            create_new_cluster_mapping($user_id);
+    public static function getSentencePairsForUser($user_id){
+        $relevant_cluster_id = update_U2_blank($user_id);
+        if($relevant_cluster_id == -1){
+            $relevant_cluster_id = create_new_cluster_mapping($user_id);
         }
+
+        //change this to a foin query and return
+        $sentence_pair_ids = DB::select('select pair_id from table3 where cluster_id = ?', [$relevant_cluster_id]);
+
+
     }
+
+    
 }
