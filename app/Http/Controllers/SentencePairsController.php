@@ -65,9 +65,9 @@ class SentencePairsController extends Controller
         //if a user gives up in middle, next time he refresh, he will recieve the assigned set
         $not_completed_cluster_id = DB::select('select cluster_id from ' . ClusterUsers::$table_name . ' where 
                                   (user1_id = ? and user1_completed = 0) or 
-                                  (user2_id = ? and user2_completed =0)', [$user_id, $user_id])[0];
-        if ($not_completed_cluster_id == null) {
-            $relevant_cluster_id = $not_completed_cluster_id->cluster_id;
+                                  (user2_id = ? and user2_completed =0)', [$user_id, $user_id]);
+        if ($not_completed_cluster_id != null) {
+            $relevant_cluster_id = $not_completed_cluster_id[0]->cluster_id;
         } else {
             $relevant_cluster_id = self::update_U2_blank($user_id);
             if ($relevant_cluster_id == -1) {

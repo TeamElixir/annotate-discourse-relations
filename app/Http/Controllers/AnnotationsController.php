@@ -49,7 +49,8 @@ class AnnotationsController extends Controller
         foreach ($u2_blank_clusters as $cluster) {
             if ($cluster->user1_id != $user_id) {
                 //update <table> where cluster_id = $cluster[0] set cluster_id = $cluster[0], user1_id=$cluster[1], user2_id=$user_id
-                DB::update('update  ' . ClusterUsers::$table_name . ' set user2_id = ?, user2_completed = 1 where cluster_id = ?', ['$user_id', $cluster->cluster_id]);
+                DB::update('update  ' . ClusterUsers::$table_name . ' set user2_id = ?, user2_completed = 1 where cluster_id = ?',
+                    [$user_id, $cluster->cluster_id]);
                 return true;
             }
         }
