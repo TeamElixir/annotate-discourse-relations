@@ -73,7 +73,7 @@ class AnnotationsController extends Controller
         }
     }
 
-    public static function save_record($user_id, $pair_id, $relation_id)
+    public static function save_record($pair_id, $user_id, $relation_id)
     {
         //insert into <relation-pair_id table> values $pair_id,$relation_id
         DB::insert('insert into ' . PairUserAnnotation::$table_name . ' (pair_id, user_id, relation) values (?, ?, ?)', [$pair_id, $user_id, $relation_id]);
