@@ -38,10 +38,10 @@ class AnnotationsController extends Controller
         //sql query : select cluster_id, user1_id from <table> where user2_id = null;
         //the results are stored in following array (so it would be array of arrays;
 
-        $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_completed = 0');
+        $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_completed = 0 and user2_id=?', [$user_id]);
 
         foreach ($u2_blank_clusters as $cluster) {
-            if ($cluster->user1_id != $user_id) {
+            if ($cluster->user2_id == $user_id) {
                 //update <table> where cluster_id = $cluster[0] set cluster_id = $cluster[0], user1_id=$cluster[1], user2_id=$user_id
                 DB::update('update  ' . ClusterUsers::$table_name . ' set user2_id = ?, user2_completed = 1 where cluster_id = ?',
                     [$user_id, $cluster->cluster_id]);
@@ -52,12 +52,12 @@ class AnnotationsController extends Controller
 
     }
 
-    //to create newcluster_id and assign user1 
+    //to create newcluster_id and assign user1
     public static function update_U1_blank($user_id)
     {
         //select Max(cluster_id) from <table>;
         //assign to following variable;
-        $current_maximum_cluster_id = DB::select('select max(cluster_id) as md from ' . ClusterUsers::$table_name . '');
+        $current_maximum_cluster_id = DB::select('select max(cluster_id) as md from ' . ClusterUsers::$table_name . ' where user1_id = ? and user1_completed=0', [$user_id]);
         //insert into <table> values $cluster_id,$user_id,null;
         DB::update('update ' . ClusterUsers::$table_name . ' set user1_id = ?, user1_completed = 1 where cluster_id = ?',
             [$user_id, $current_maximum_cluster_id[0]->md]);
