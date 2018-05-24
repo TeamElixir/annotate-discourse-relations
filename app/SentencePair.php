@@ -9,8 +9,8 @@ use DB;
 
 class SentencePair extends Model
 {
-    public static $table_name = "annotated_sentence_pairs";
-    protected $table = "annotated_sentence_pairs";
+    public static $table_name = "sentence_pairs_from_algorithm";
+    protected $table = "sentence_pairs_from_algorithm";
     protected $attributes = [
         'AuthUserId' => '',
         'SourceSentence' => '',
@@ -27,7 +27,7 @@ class SentencePair extends Model
 
     public function getOriginalRelationAttribute()
     {
-        $r = Relation::find($this->relation);
+        $r = Relation::find($this->relation + 1);
         return $r;
     }
 
@@ -62,5 +62,4 @@ class SentencePair extends Model
         $target_sentence = Sentence::find($this->target_sntc_id);
         return $target_sentence;
     }
-
 }

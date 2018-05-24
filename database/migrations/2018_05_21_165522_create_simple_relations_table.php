@@ -14,7 +14,7 @@ class CreateSimpleRelationsTable extends Migration
     public function up()
     {
         Schema::create('simple_relations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id');
             $table->string('relation');
         });
     }

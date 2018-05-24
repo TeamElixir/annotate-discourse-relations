@@ -16,27 +16,28 @@ class SimpleRelationsTableSeeder extends Seeder
 
         SimpleRelation::create([
             'id' => '1',
-            'relation' => 'Elaboration',
+            'relation' => 'No Relation',
         ]);
 
         SimpleRelation::create([
             'id' => '2',
-            'relation' => 'Redundancy',
+            'relation' => 'Elaboration',
         ]);
 
         SimpleRelation::create([
             'id' => '3',
-            'relation' => 'Citation',
+            'relation' => 'Redundancy',
         ]);
 
         SimpleRelation::create([
             'id' => '4',
-            'relation' => 'Shift in View',
+            'relation' => 'Citation',
         ]);
 
         SimpleRelation::create([
-            'id' => '0',
-            'relation' => 'No Relation',
+            'id' => '5',
+            'relation' => 'Shift in View',
         ]);
+
     }
 }

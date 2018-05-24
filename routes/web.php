@@ -19,9 +19,9 @@ Route::post('/not-defined', [
     'uses' => 'PagesController@tempPost'
 ])->name('not-defined');
 
-Route::get('/temp', [
-    'uses' => 'TempController@shuffleAndCluster'
-]);
+//Route::get('/temp', [
+//    'uses' => 'TempController@shuffleAndCluster'
+//]);
 
 Route::get('/raw-sentences', [
     'uses' => 'SentencesController@getAllSentences',

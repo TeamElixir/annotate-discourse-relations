@@ -23,7 +23,7 @@ class SentencePairForUser extends Model
 
     public function getOriginalRelationAttribute()
     {
-        $r = Relation::find($this->relation);
+        $r = Relation::find($this->relation + 1);
         return $r;
     }
 
