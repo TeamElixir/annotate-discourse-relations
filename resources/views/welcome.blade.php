@@ -5,9 +5,21 @@
 @stop
 
 @section('content')
+    <h5>Annotation Guide</h5>
     <div class="row">
-        <h3>FYP OBLIE</h3>
+        {{--<div class="col-md-8">--}}
+        @foreach($simple_relations as $simple_relation)
+            <div class="card" style="width: 14rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{$simple_relation->relation}}</h5>
+                    <p>{{$simple_relation->description}}</p>
+                </div>
+            </div>
+        @endforeach
+        {{--</div>--}}
+        <p>For examples, please see <a target="_blank" href="http://bit.ly/2LtVir4">this</a></p>
     </div>
+    <br>
     <form action="{{route('not-defined')}}" method="post" onsubmit="return validateForm()" name="annotationForm">
         {{csrf_field()}}
         @php
@@ -23,12 +35,12 @@
                     <ul class="list-group">
                         {{--Sentencer 1--}}
                         <li class="list-group-item">
-                            <div><strong>Sentence 1</strong>: {{$sentence_pair->SourceSentence->sentence}}</div>
+                            <div><strong>Sentence 1</strong>: {{$sentence_pair->TargetSentence->sentence}}</div>
                         </li>
 
                         {{--Sentence 2--}}
                         <li class="list-group-item">
-                            <div><strong>Sentence 2</strong>: {{$sentence_pair->TargetSentence->sentence}}</div>
+                            <div><strong>Sentence 2</strong>: {{$sentence_pair->SourceSentence->sentence}}</div>
                         </li>
 
                         {{--Relation--}}

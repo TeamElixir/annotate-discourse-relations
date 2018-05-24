@@ -16,6 +16,7 @@ class CreateSimpleRelationsTable extends Migration
         Schema::create('simple_relations', function (Blueprint $table) {
             $table->integer('id');
             $table->string('relation');
+            $table->text('description');
         });
     }
 
