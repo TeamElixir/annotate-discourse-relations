@@ -31,11 +31,11 @@ class SimpleRelationsTableSeeder extends Seeder
 
         SimpleRelation::create([
             'id' => '4',
-            'relation' => 'Deviation',
+            'relation' => 'Shift in View',
         ]);
 
         SimpleRelation::create([
-            'id' => '5',
+            'id' => '0',
             'relation' => 'No Relation',
         ]);
     }

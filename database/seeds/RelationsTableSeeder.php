@@ -20,7 +20,7 @@ class RelationsTableSeeder extends Seeder
             'description' => 'There\'s no relation between the first sentence and the second',
             'text_span_1' => '',
             'text_span_2' => '',
-            'simple_relation_id' => 5
+            'simple_relation_id' => 0
         ]);
 
         Relation::create([

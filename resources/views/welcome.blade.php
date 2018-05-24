@@ -8,7 +8,7 @@
     <div class="row">
         <h3>FYP OBLIE</h3>
     </div>
-    <form action="{{route('not-defined')}}" method="post">
+    <form action="{{route('not-defined')}}" method="post" onsubmit="return validateForm()" name="annotationForm">
         {{csrf_field()}}
         @php
             $i = 0;
@@ -41,14 +41,14 @@
                         {{--Dropdown selector--}}
                         <div class="row">
                             <div class="col-md-6 col-centered text-center">
-                                <div id="dropdown_block_{{$sentence_pair->pair_id}}">
-                                    <select class="custom-select" id="dropdown_{{$sentence_pair->pair_id}}"
+                                <div id="dropdown_block_{{$i}}">
+                                    <select class="custom-select required" id="dropdown_{{$i}}"
                                             name="annotation_of_pair_{{$i}}">
                                         <option disabled selected value> -- select an option --</option>
                                         <option value="0">{{$sentence_pair->SimpleRelation->relation}} is Correct!
                                         </option>
                                         @foreach($simple_relations as $simple_relation)
-                                            {{--Skip the relation that's mentioned in the questioned--}}
+                                            {{--Skip the relation that's mentioned in the question--}}
                                             @if(!($simple_relation->id == $sentence_pair->SimpleRelation->id))
                                                 <option value="{{$simple_relation->id}}">No,
                                                     it's {{$simple_relation->relation}}</option>
@@ -81,4 +81,29 @@
     <br>
     <br>
     <br>
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+        function validateForm() {
+            var valid = true;
+            var i;
+            var annotations = [];
+            for (i = 0; i < 5; i++) {
+                annotations[i] = document.forms["annotationForm"]["dropdown_" + i].value;
+
+                if (annotations[i] == "") {
+                    valid = false;
+                }
+            }
+
+
+            if (valid) {
+                return confirm("Are you sure you want to Submit the answers?");
+            } else {
+                alert("Please select an option for each question");
+                return false;
+            }
+        }
+    </script>
 @stop
