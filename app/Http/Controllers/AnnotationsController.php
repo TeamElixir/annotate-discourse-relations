@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Annotation;
 use App\ClusterUsers;
+use App\PairUserAnnotation;
 use Couchbase\Cluster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,9 +62,10 @@ class AnnotationsController extends Controller
     {
         //select Max(cluster_id) from <table>;
         //assign to following variable;
-        $current_maximum_cluster_id = DB::select('select max(cluster_id) from ' . ClusterUsers::$table_name . '');
+        $current_maximum_cluster_id = DB::select('select max(cluster_id) as md from ' . ClusterUsers::$table_name . '');
         //insert into <table> values $cluster_id,$user_id,null;
-        DB::update('update ' . ClusterUsers::$table_name . ' set user1_id = ?, user1_completed = 1 where cluster_id = ?', [$user_id, $current_maximum_cluster_id]);
+        DB::update('update ' . ClusterUsers::$table_name . ' set user1_id = ?, user1_completed = 1 where cluster_id = ?',
+            [$user_id, $current_maximum_cluster_id[0]->md]);
     }
 
     //complete cluster assignment
