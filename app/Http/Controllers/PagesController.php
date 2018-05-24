@@ -36,6 +36,9 @@ class PagesController extends Controller
 
         $user_id = Auth::user()->id;
 
+        AnnotationsController::process_cluster_mapping($user_id);
+
+
         AnnotationsController::createAnnotation($user_id, $id_of_pair_0, $annotation_of_pair_0);
         AnnotationsController::createAnnotation($user_id, $id_of_pair_1, $annotation_of_pair_1);
         AnnotationsController::createAnnotation($user_id, $id_of_pair_2, $annotation_of_pair_2);

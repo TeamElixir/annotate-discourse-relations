@@ -25,14 +25,8 @@ class AnnotationsController extends Controller
 
     public static function createAnnotation($user_id, $pair_id, $annotation)
     {
-        DB::table('annotations')->insert([
-            'user_id' => $user_id,
-            'pair_id' => $pair_id,
-            'annotation' => $annotation
-        ]);
-
         //new implementation
-        self::process_cluster_mapping($user_id);
+
         self::save_record($pair_id, $user_id, $annotation);
 
         return "annotated";
@@ -44,7 +38,7 @@ class AnnotationsController extends Controller
         //sql query : select cluster_id, user1_id from <table> where user2_id = null;
         //the results are stored in following array (so it would be array of arrays;
 
-        $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_id = null');
+        $u2_blank_clusters = DB::select('select * from ' . ClusterUsers::$table_name . ' where user2_completed = 0');
 
         foreach ($u2_blank_clusters as $cluster) {
             if ($cluster->user1_id != $user_id) {
