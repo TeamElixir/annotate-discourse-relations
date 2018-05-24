@@ -45,8 +45,8 @@
 
                         {{--Relation--}}
                         <li class="list-group-item">
-                            <strong>Relation between the two
-                                sentences</strong>: {{$sentence_pair->OriginalRelation->simpleRelation->relation}}
+                            <strong>Predicted
+                                Relation </strong>: {{$sentence_pair->OriginalRelation->simpleRelation->relation}}
                         </li>
                         <br>
 
@@ -57,7 +57,8 @@
                                     <select class="custom-select required" id="dropdown_{{$i}}"
                                             name="annotation_of_pair_{{$i}}">
                                         <option disabled selected value> -- select an option --</option>
-                                        <option value="0">{{$sentence_pair->SimpleRelation->relation}} is Correct!
+                                        <option value="{{$sentence_pair->SimpleRelation->id - 1}}">{{$sentence_pair->SimpleRelation->relation}}
+                                            is Correct!
                                         </option>
                                         @foreach($simple_relations as $simple_relation)
                                             {{--Skip the relation that's mentioned in the question--}}
