@@ -57,7 +57,7 @@
                                     <select class="custom-select required" id="dropdown_{{$i}}"
                                             name="annotation_of_pair_{{$i}}">
                                         <option disabled selected value> -- select an option --</option>
-                                        <option value="{{$sentence_pair->SimpleRelation->id - 1}}">{{$sentence_pair->SimpleRelation->relation}}
+                                        <option value="{{$sentence_pair->SimpleRelation->id}}">{{$sentence_pair->SimpleRelation->relation}}
                                             is Correct!
                                         </option>
                                         @foreach($simple_relations as $simple_relation)
