@@ -5,6 +5,8 @@
 @stop
 
 @section('content')
+    <center><h5><strong>Thank you for making time to help us out. It is greatly appreciated!</strong></h5></center>
+    <br>
     <h5>Annotation Guide</h5>
     <div class="row">
         {{--<div class="col-md-8">--}}
@@ -90,7 +92,6 @@
             </div>
         </div>
     </form>
-
     <br>
     <br>
     <br>
