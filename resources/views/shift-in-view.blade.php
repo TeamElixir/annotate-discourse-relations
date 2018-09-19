@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <h4>Shift-in-View Pairs</h4>
+        <h4>Shift-in-View Pairs: {{$noOfShiftInViewPairs}}</h4>
         <div class="col-md-12">
             <table class="table">
                 <thead>
