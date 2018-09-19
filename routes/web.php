@@ -15,6 +15,10 @@ Route::get('/', [
     'uses' => 'PagesController@getHomePage',
 ]);
 
+Route::get('shift-in-views', [
+    'uses' => 'ShiftInViewsController@index'
+])->name('shift-in-views');
+
 Route::post('/not-defined', [
     'uses' => 'PagesController@tempPost'
 ])->name('not-defined');
