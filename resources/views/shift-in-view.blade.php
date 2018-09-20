@@ -20,7 +20,7 @@
                 @foreach($allPairs as $pair)
                     @if($pair->relation == 5)
                     <tr>
-                        <td>{{$pair->id}}</td>
+                        <td>{{$pair->pair_id}}</td>
                         <td>{{$pair->sentencePair->SourceSentence->sentence}}</td>
                         <td>{{$pair->sentencePair->TargetSentence->sentence}}</td>
                     </tr>
