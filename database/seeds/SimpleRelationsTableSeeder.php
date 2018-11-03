@@ -46,7 +46,7 @@ class SimpleRelationsTableSeeder extends Seeder
             'id' => '5',
             'relation' => 'Shift in View',
             'description' => 'When the details provided by one sentence is in a different view from the other sentence. 
-            This happens because two sentences are providing conflicting information or opinions on a same topic or entity.',
+            This happens because two sentences are providing conflicting information or opinions on the same topic or entity.',
         ]);
 
     }
