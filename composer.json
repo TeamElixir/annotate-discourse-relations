@@ -10,7 +10,8 @@
         "laravel/framework": "5.6.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",
-        "ext-pdo_sqlite": "*"
+        "ext-pdo_sqlite": "*",
+        "guzzlehttp/guzzle": "6.3.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

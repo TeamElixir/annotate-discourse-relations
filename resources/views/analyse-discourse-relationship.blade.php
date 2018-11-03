@@ -21,21 +21,20 @@
     </div>
     <br>
 
-    <form class="" action="/submit-sentences" method="post" type="multipart/form-data">
-        {{method_field('PATCH')}}
+    <form class="" action="{{route('submit-sentences')}}" method="post">
         {{csrf_field()}}
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="target-sent">Sentence 1:</label>
-                    <textarea class="form-control" rows="5" name="target-sent" required></textarea>
+                    <label for="targetSent">Sentence 1:</label>
+                    <textarea class="form-control" rows="5" name="targetSent" required></textarea>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="source-sent">Sentence 2:</label>
-                    <textarea class="form-control" rows="5" name="source-sent" required></textarea>
+                    <label for="sourceSent">Sentence 2:</label>
+                    <textarea class="form-control" rows="5" name="sourceSent" required></textarea>
                 </div>
             </div>
 
@@ -43,9 +42,7 @@
 
         <div class="row">
             <div class="col-md-12 col-centered">
-                <button type="submit" class="btn btn-primary" value="post">
-                    Submit
-                </button>
+                <input type="submit" class="btn btn-primary" value="Submit">
             </div>
         </div>
     </form>

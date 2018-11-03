@@ -29,8 +29,8 @@ Route::get('/analyse-relationship', [
 ]);
 
 Route::post('/submit-sentences', [
-
-]);
+    'uses' => 'AnalyzeRelationshipController@main'
+])->name('submit-sentences');
 
 Route::get('shift-in-views', [
     'uses' => 'ShiftInViewsController@index'
