@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class AnalyzeRelationshipController extends Controller
 {
+
+    private $mappings = [
+        1 => 'No Relation',
+        2 => 'Elaboration',
+        3 => 'Redundancy',
+        4 => 'Citation',
+        5 => 'Shift-in-View'
+    ];
+
     public function main(Request $request)
     {
         $sourceSent = $request->sourceSent;
@@ -15,29 +24,21 @@ class AnalyzeRelationshipController extends Controller
         $url = "http://206.189.196.14:8080/sentence-feature-extractor/discourse/type";
 
         $body = '{"source-sent": "' . $sourceSent . '", "target-sent": "' . $targetSent . '"}';
-//        $body = json_encode($body, JSON_FORCE_OBJECT);
-
-//        dd($body);
 
         $client = new Client([
-//            'headers' => ['Content-Type' => 'application/json']
             'headers' => ['Content-Type' => 'text/plain']
         ]);
         $response = $client->post($url, ['body' => $body]);
 
-//        $response = json_decode($response->getBody(), true);
+        $response = json_decode($response->getBody(), true);
+        $relationshipKey = $response['type'];
 
-        dd($response);
+        $mapping = $this->mappings[$relationshipKey];
 
-    }
-
-    private function encodeToJSON($sourceSent, $targetSent)
-    {
-        $data = array();
-        $data['source-sent'] = $sourceSent;
-        $data['target-sent'] = $targetSent;
-        $params[] = $data;
-//        $body = json_encode($params);
-        $body = json_encode($params, JSON_FORCE_OBJECT);
+        return view('analyse-discourse-relationship-result', [
+            'sourceSent' => $sourceSent,
+            'targetSent' => $targetSent,
+            'mapping' => $mapping
+        ]);
     }
 }
