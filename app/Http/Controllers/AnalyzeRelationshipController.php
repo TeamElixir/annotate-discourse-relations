@@ -12,20 +12,12 @@ class AnalyzeRelationshipController extends Controller
         $sourceSent = $request->sourceSent;
         $targetSent = $request->targetSent;
 
-        $data = array();
-        $data['source-sent'] = $sourceSent;
-        $data['target-sent'] = $targetSent;
+        $url = "http://206.189.196.14:8080/sentence-feature-extractor/discourse/type";
 
-        $params[] = $data;
-
-        $body = '{"source-sent": "' . $sourceSent . '","target-sent": "' . $targetSent . '""}';
+        $body = '{"source-sent": "' . $sourceSent . '", "target-sent": "' . $targetSent . '"}';
 //        $body = json_encode($body, JSON_FORCE_OBJECT);
 
-//        $body = json_encode($params);
-//        $body = json_encode($params, JSON_FORCE_OBJECT);
 //        dd($body);
-
-        $url = "http://206.189.196.14:8080/sentence-feature-extractor/discourse/type";
 
         $client = new Client([
 //            'headers' => ['Content-Type' => 'application/json']
@@ -37,5 +29,15 @@ class AnalyzeRelationshipController extends Controller
 
         dd($response);
 
+    }
+
+    private function encodeToJSON($sourceSent, $targetSent)
+    {
+        $data = array();
+        $data['source-sent'] = $sourceSent;
+        $data['target-sent'] = $targetSent;
+        $params[] = $data;
+//        $body = json_encode($params);
+        $body = json_encode($params, JSON_FORCE_OBJECT);
     }
 }
