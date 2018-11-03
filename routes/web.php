@@ -1,5 +1,7 @@
 <?php
 
+use App\SimpleRelation;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,21 @@
 
 Route::get('/', [
     'uses' => 'PagesController@getHomePage',
+]);
+
+Route::get('/analyse-relationship', [
+    'as' =>'analyse-relationship',
+    function () {
+        $simple_relations = SimpleRelation::all();
+
+        return view('analyse-discourse-relationship',[
+            'simple_relations' => $simple_relations
+        ]);
+    }
+]);
+
+Route::post('/submit-sentences', [
+
 ]);
 
 Route::get('shift-in-views', [
