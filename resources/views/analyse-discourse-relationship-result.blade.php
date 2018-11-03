@@ -25,8 +25,8 @@
         <div class="col-md-12 col-centered">
             <ul class="list-group">
                 <li class="list-group-item"><b>Source Sentence</b>: {{$sourceSent}}</li>
-                <li class="list-group-item">Target Sentence: {{$targetSent}}</li>
-                <li class="list-group-item">Relationship: {{$mapping}}</li>
+                <li class="list-group-item"><b>Target Sentence</b>: {{$targetSent}}</li>
+                <li class="list-group-item"><b>Relationship</b>: {{$mapping}}</li>
             </ul>
         </div>
     </div>
