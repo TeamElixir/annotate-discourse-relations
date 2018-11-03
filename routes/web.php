@@ -18,11 +18,11 @@ Route::get('/', [
 ]);
 
 Route::get('/analyse-relationship', [
-    'as' =>'analyse-relationship',
+    'as' => 'analyse-relationship',
     function () {
         $simple_relations = SimpleRelation::all();
 
-        return view('analyse-discourse-relationship',[
+        return view('analyse-discourse-relationship', [
             'simple_relations' => $simple_relations
         ]);
     }
@@ -74,6 +74,6 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 Route::get('/api/pairs', 'api\SentencePairsApi@search');
 Route::get('/api/sentences', 'api\SentencesApi@search');
 Route::get('/api/annotations', 'api\AnnotationsApi@getAllAnnotations');
-Route::get('/api/annotations/{user_id}','api\AnnotationsApi@getAnnotationsOfuser');
+Route::get('/api/annotations/{user_id}', 'api\AnnotationsApi@getAnnotationsOfuser');
 Route::get('/api/relations', 'api\RelationsApi@getAllRelations');
 Route::get('/api/relations/{id}', 'api\RelationsApi@getRelationById');
