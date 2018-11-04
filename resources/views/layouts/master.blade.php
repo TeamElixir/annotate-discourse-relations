@@ -7,14 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') | TeamElixir .</title>
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <script>window.Laravel = { csrfToken: '{{csrf_token()}}'}</script>
+    <script>window.Laravel = {csrfToken: '{{csrf_token()}}'}</script>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('aos/aos.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
     <style>
-        body{
+        body {
             font-family: 'Gothic A1', sans-serif;
         }
     </style>

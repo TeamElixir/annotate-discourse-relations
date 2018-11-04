@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h5>Discourse Relationship Guide</h5>
+    <h5 xmlns="http://www.w3.org/1999/html">Discourse Relationship Guide</h5>
     <div class="row">
         {{--<div class="col-md-8">--}}
         @foreach($simple_relations as $simple_relation)
@@ -21,31 +21,76 @@
     </div>
     <br>
 
-    <form class="" action="{{route('submit-sentences')}}" method="post">
-        {{csrf_field()}}
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="targetSent">Sentence 1:</label>
-                    <textarea class="form-control" rows="5" name="targetSent" required></textarea>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="sourceSent">Sentence 2:</label>
-                    <textarea class="form-control" rows="5" name="sourceSent" required></textarea>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 col-centered">
-                <input type="submit" class="btn btn-primary" value="Submit">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="targetSent">Sentence 1:</label>
+                <textarea type="text" class="form-control" rows="5" id="targetSent" name="targetSent"
+                          required></textarea>
             </div>
         </div>
-    </form>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="sourceSent">Sentence 2:</label>
+                <textarea class="form-control" rows="5" id="sourceSent" name="sourceSent" required></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col col-md-6 col-centered text-center btn-block">
+            <button class="btn btn-info" id="btn_submit">Submit</button>
+        </div>
+    </div>
     <br>
     <br>
+
+    <div class="row">
+        <div class="col-md-3 col-lg-3 offset-md-4 offset-lg-4 text-centered">
+            <div class="well well-lg" id="result">
+                <ul class="list-group">
+                    <li class="list-group-item" id="result_relationship"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#btn_submit').button().click(() => {
+            console.log('Clicked');
+            let source_sentence = $('#sourceSent').val();
+            let target_sentence = $('#targetSent').val();
+            let data = {'source-sent': source_sentence, 'target-sent': target_sentence};
+            console.log(data);
+
+            $.ajax({
+                method: 'POST',
+                url: 'ajax-check-relationship',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "source_sentence": source_sentence,
+                    "target_sentence": target_sentence
+                },
+                success: function (res) {
+                    console.log(res);
+
+                    if (source_sentence.length > 0 && target_sentence.length > 0) {
+                        $('#result_relationship').append(res);
+                    } else {
+                        $('#result_relationship').append(error_message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                    $('#result_relationship').append("Error");
+                }
+            });
+        });
+    </script>
 @stop

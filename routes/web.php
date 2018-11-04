@@ -28,6 +28,10 @@ Route::get('/analyse-relationship', [
     }
 ]);
 
+Route::post('ajax-check-relationship', [
+    'uses' => 'AnalyzeRelationshipController@ajax'
+]);
+
 Route::post('/submit-sentences', [
     'uses' => 'AnalyzeRelationshipController@main'
 ])->name('submit-sentences');

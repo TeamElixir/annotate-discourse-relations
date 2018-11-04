@@ -41,4 +41,26 @@ class AnalyzeRelationshipController extends Controller
             'mapping' => $mapping
         ]);
     }
+
+    public function ajax(Request $request)
+    {
+        $source_sentence = $request->source_sentence;
+        $target_sentence = $request->target_sentence;
+
+        $url = "http://206.189.196.14:8080/sentence-feature-extractor/discourse/type";
+
+        $body = '{"source-sent": "' . $source_sentence . '", "target-sent": "' . $target_sentence . '"}';
+
+        $client = new Client([
+            'headers' => ['Content-Type' => 'text/plain']
+        ]);
+        $response = $client->post($url, ['body' => $body]);
+
+        $response = json_decode($response->getBody(), true);
+        $relationshipKey = $response['type'];
+
+        $mapping = $this->mappings[$relationshipKey];
+
+        echo $mapping;
+    }
 }
