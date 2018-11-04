@@ -48,8 +48,13 @@
 
     <div class="row">
         <div class="col-md-3 col-lg-3 offset-md-4 offset-lg-4 text-centered">
-            <div class="well well-lg" id="result">
-                <ul class="list-group">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Results
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="result_source_sentence"></li>
+                    <li class="list-group-item" id="result_target_sentence"></li>
                     <li class="list-group-item" id="result_relationship"></li>
                 </ul>
             </div>
@@ -67,6 +72,8 @@
             let source_sentence = $('#sourceSent').val();
             let target_sentence = $('#targetSent').val();
             let data = {'source-sent': source_sentence, 'target-sent': target_sentence};
+
+            const space = "&nbsp;";
             console.log(data);
 
             $.ajax({
@@ -81,7 +88,10 @@
                     console.log(res);
 
                     if (source_sentence.length > 0 && target_sentence.length > 0) {
-                        $('#result_relationship').append(res);
+
+                        $('#result_source_sentence').text('').append("<b>Source Sentence:</b> ", source_sentence);
+                        $('#result_target_sentence').text('').append("<b>Target Sentence:</b> ", target_sentence);
+                        $('#result_relationship').text('').append("<b>Relationship:</b> ", res);
                     } else {
                         $('#result_relationship').append(error_message);
                     }
@@ -91,6 +101,8 @@
                     $('#result_relationship').append("Error");
                 }
             });
-        });
+            $('#sourceSent').val('');
+            $('#targetSent').val('');
+        }); // end of callback function
     </script>
 @stop
